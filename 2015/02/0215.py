@@ -3,7 +3,7 @@
 
 
 data = []
-with open('0212input.txt') as inputfile:
+with open('0215input.txt') as inputfile:
     for line in inputfile:
         dimensions = sorted(map(int, line.split('x')))
         data.append(dimensions)
