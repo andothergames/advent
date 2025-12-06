@@ -5,7 +5,7 @@ with open('0615input.txt', 'r') as file:
     data = [line.strip() for line in file.readlines()]
 
 lights = {}
-
+lights2 = {}
 
 def getCoords(line):
     splitLine = line.split(' ')
@@ -78,7 +78,41 @@ def countLights(data):
         operateLights(instruction)
     
 
-countLights(data)
+# countLights(data)
 count = len([v for v in lights.values() if v is True])
+# print(count)
 
-print(count)
+
+
+
+def lightShowRoundTwo(data):
+    for line in data:
+        instruction = getCoords(line)
+        brightenLights(instruction, )
+
+def brightenLights(i):
+
+    xRange = i[3] - i[1]
+    yRange = i[4] - i[2] 
+    x = i[1]
+    y = i[2]
+
+    for _ in range(yRange + 1):
+        x = i[1]
+        for _ in range(xRange + 1):
+            key = f'{x},{y}'
+            if i[0] == 'on':
+                lights2[key] = lights2.get(key, 0) + 1
+            if i[0] == 'off':
+                if key in lights2:
+                    if lights2[key] > 0:
+                        lights2[key] = lights2.get(key, 0) - 1
+
+            if i[0] == 'toggle':
+                lights2[key] = lights2.get(key, 0) + 2
+            x += 1
+        y += 1  
+
+
+lightShowRoundTwo(data)
+print(sum(lights2.values()))
