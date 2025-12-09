@@ -56,4 +56,21 @@ def findTotal(data):
     print(total)
 
 
-findTotal(data)
+# part two
+
+def countNewCodeChars(data):
+    codeCount = 0
+    for line in data:
+        codeCount += 2
+        for char in line:
+            if char == "\"" or char == "\\":
+                codeCount += 1
+            codeCount+= 1
+    print(codeCount)
+    return codeCount
+
+
+def findNewTotal(data):
+    total = countNewCodeChars(data) - countCodeChars(data)
+    print(total)
+    return total
