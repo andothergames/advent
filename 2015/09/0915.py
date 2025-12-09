@@ -49,13 +49,15 @@ def getPathTotal(combo, journeys):
 def calculateRoute(combos, journeys):
     lowestWinner = 10000
     highestWinner = 0
+    lowestRoute = ()
     for combo in combos:
         x = getPathTotal(combo, journeys)
         if x < lowestWinner:
             lowestWinner = x
+            lowestRoute = combo
         if x > highestWinner:
             highestWinner = x
-    print('lower:', lowestWinner, 'higher:', highestWinner)
+    print('lower:', lowestWinner, 'higher:', highestWinner, lowestRoute)
 
 
 def main(data):
