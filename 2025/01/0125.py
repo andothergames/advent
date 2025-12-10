@@ -6,16 +6,20 @@ with open('0125input.txt', 'r') as file:
 
 def spinDial(dir, amt, start):
     position = start
+    ticker = 0
     for x in range(amt):
         if dir == 'R':
             position += 1
             if position == 100:
+                ticker += 1
                 position = 0
         if dir == 'L':
             position -= 1
-            if position == -100:
-                position = 0
-    return position
+            if position == 0:
+                ticker += 1
+            if position == -1:
+                position = 99
+    return [position, ticker]
 
 
 def formatData(data):
@@ -33,11 +37,13 @@ def main(data):
     zeroesCount = 0
     startPosition = 50
     for line in dirs:
-        position = spinDial(line[0], line[1], startPosition)
-        if position == 0:
-            zeroesCount += 1
-        startPosition = position
+        result = spinDial(line[0], line[1], startPosition)
+        zeroesCount += result[1]
+        startPosition = result[0]
     return zeroesCount
     
 
+cab = ['R50','L20','R200']
 print(main(data))
+
+# 5928 was too low
