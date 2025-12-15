@@ -1,6 +1,7 @@
 with open('0116input.txt', 'r') as inputfile:
     directions = inputfile.read().split(', ')
     
+locations = {}
 
 def changeDir(current, turn):
     if current == 'N' and turn == 'R':
@@ -21,21 +22,51 @@ def changeDir(current, turn):
         return 'S'
 
 
+def moveDistance(C, dist):
+    for _ in range(dist):
+        if C[2] == 'N':
+            C[1] += 1
+            key = f"{C[0]},{C[1]}"
+            if key in locations.keys():
+                print(key, 'key')
+                break
+            else:
+                locations[key] = 1
+        if C[2] == 'E':
+            C[0] += 1
+            key = f"{C[0]},{C[1]}"
+            if key in locations.keys():
+                print(key, 'key')
+                break
+            else:
+                locations[key] = 1
+        if C[2] == 'S':
+            C[1] -= 1
+            key = f"{C[0]},{C[1]}"
+            if key in locations.keys():
+                print(key, 'key')
+                break
+            else:
+                locations[key] = 1
+        if C[2] == 'W':
+            C[0] -= 1
+            key = f"{C[0]},{C[1]}"
+            if key in locations.keys():
+                print(key, 'key')
+                break
+            else:
+                locations[key] = 1
+    return C
+
+        
+
 def calcDirs(directions):
     coords = [0, 0, 'N']
     for dir in directions:
         coords[2] = changeDir(coords[2], dir[0])
         dist = int(dir[1:])
-
-        if coords[2] == 'N':
-            coords[1] = coords[1] + dist
-        if coords[2] == 'E':
-            coords[0] = coords[0] + dist
-        if coords[2] == 'S':
-            coords[1] = coords[1] - dist
-        if coords[2] == 'W':
-            coords[0] = coords[0] - dist
-
+        newCoords = moveDistance(coords, dist)
+        coords = newCoords
     print(coords)
 
 
