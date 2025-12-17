@@ -1,7 +1,7 @@
 import re
 
 with open('1615input.txt', 'r') as file:
-    text = file.readlines()
+    data = file.readlines()
 
 aunts = {}
 
@@ -17,17 +17,9 @@ MFCSAM = {
 'cars': 2,
 'perfumes': 1}
 
-compounds = MFCSAM.keys()
 
-#  1: {'comp': num, 'comp': num}
-
-def checkCompounds(data):
-    for _ in MFCSAM:
-        for compound in data:
-            if data[compound] != MFCSAM[_]:
-                return False
-        print(data)
-        return True 
+def checkCompounds(compound, aunt):
+    return aunt[compound] == MFCSAM[compound]
 
 
 def formatData(data):
@@ -35,22 +27,21 @@ def formatData(data):
         text = line.rstrip()
         auntData = re.split(r'[:,\s]+', text)
         compounds = {}
-
         compounds[auntData[2]] = int(auntData[3])
         compounds[auntData[4]] = int(auntData[5])
         compounds[auntData[6]] = int(auntData[7])
-
         aunts[int(auntData[1])] = compounds
         compounds = {}
-    print(aunts)
+    return aunts
 
-# formatData(text)
 
-def searchAunts(): 
-    key = 1
-    while key < 500:
-        for compound in aunts[key]:
-            if compound in compounds:
-                checkCompounds(aunts[key])
+def searchAunts(a): 
+    for key, compounds in a.items():
+        if all(checkCompounds(compound, compounds) for compound in compounds):
+            print(f"Aunt {key}")
+            return True
+    return False
 
-        key += 1
+
+sues = formatData(data)
+searchAunts(sues)
