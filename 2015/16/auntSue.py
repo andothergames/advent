@@ -19,8 +19,16 @@ MFCSAM = {
 
 
 def checkCompounds(compound, aunt):
-    return aunt[compound] == MFCSAM[compound]
+    if compound == 'trees' or compound == 'cats':
+        return aunt[compound] > MFCSAM[compound]
+    if compound == 'pomeranians' or compound == 'goldfish':
+        return aunt[compound] < MFCSAM[compound]
+    else:
+        return aunt[compound] == MFCSAM[compound]
 
+
+# aunts value is more than the ticker cats and trees 
+# aunts value is less than pomeranians and goldfish 
 
 def formatData(data):
     for line in data:
