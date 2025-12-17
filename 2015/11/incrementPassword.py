@@ -1,5 +1,10 @@
 # --- Day 11: Corporate Policy ---
 
+
+# include one increasing straight of at least three letters, like abc, bcd, cde, and so on, up to xyz.
+# Passwords may not contain the letters i, o, or l
+# Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz.
+
 import string
 input = 'cqjxjnds'
 
@@ -27,8 +32,8 @@ def excludesIOL(str):
     return 'i' not in str and 'o' not in str and 'l' not in str
 
 
-def includesTwoPlusPairs(str):
-    length = len(str) - 3
+def includesPairs(str):
+    length = len(str) - 2
     x = 0
     pairs = 0
     while x < length:
@@ -41,7 +46,7 @@ def includesTwoPlusPairs(str):
 
 
 def passing(str):
-    return includesIncreasingSet(str) and excludesIOL(str) and includesTwoPlusPairs(str)
+    return includesIncreasingSet(str) and excludesIOL(str) and includesPairs(str)
 
 
 # increment function
