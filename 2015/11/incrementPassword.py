@@ -1,10 +1,6 @@
 # --- Day 11: Corporate Policy ---
 
 
-# include one increasing straight of at least three letters, like abc, bcd, cde, and so on, up to xyz.
-# Passwords may not contain the letters i, o, or l
-# Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz.
-
 import string
 input = 'cqjxjnds'
 
@@ -25,6 +21,16 @@ def includesIncreasingSet(str):
         if indexes[n] + 1 == indexes[n + 1] and indexes[n] + 2 == indexes[n + 2]:
             return True
         n += 1
+    return False
+
+
+def includesIncreasingSet(s):
+    for i in range(len(s) - 2):
+        if (
+            ord(s[i+1]) == ord(s[i]) + 1 and
+            ord(s[i+2]) == ord(s[i+1]) + 1
+        ):
+            return True
     return False
 
 
@@ -52,29 +58,34 @@ def passing(str):
 # increment function
 
 def increment(password):
+    password = list(password)
     letterIndex = alpha.index(password[-1])
-    password[-1] = alpha[letterIndex]
+    password[-1] = alpha[(letterIndex + 1) % 26]
     letter = -1
 
-    while letter > 0 - len(password):
-        if password[letter] == alpha[26]:
-            password[letter] = 0
-            password[letter - 1] += 1
+    while letter >= -len(password):
+        if password[letter] == alpha[25]:
+            password[letter] = alpha[0]
+            if letter - 1 >= -len(password):
+                prevIndex = alpha.index(password[letter - 1])
+                password[letter - 1] = alpha[(prevIndex + 1) % 26]
         letter -= 1
 
-    if password[0] == alpha[26]:
+    if password[0] == alpha[25]:
         password[0] = alpha[0]
     
-    print(password)
+    return "".join(password)
 
 
 
 def main(code):
     password = code
-    passing = False
-    while passing == False:
+    is_passing = False
+    while is_passing == False:
         password = increment(password)
-        passing = passing(password)
-        if passing == True:
+        is_passing = passing(password)
+        if is_passing == True:
             return password
+        
 
+print(main(input))
