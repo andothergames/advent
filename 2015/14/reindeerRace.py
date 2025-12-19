@@ -3,11 +3,10 @@ with open('1415input.txt', 'r') as file:
     capabilties = file.readlines()
 
     
-def countKM(speed, stamina, rest):
+def countKM(speed, stamina, rest, raceLength):
     seconds = 0
     coveredKM = 0
     running = True
-    raceLength = 2503
     while seconds < raceLength:
         if running:
             for _ in range(stamina):
@@ -22,14 +21,30 @@ def countKM(speed, stamina, rest):
     return coveredKM
 
 
-def main(code):
-    winner = 0
+def race(code, raceLength):
+    distances = {}
     for line in code:
         reindeer = line.split()
-        coveredKM = countKM(int(reindeer[3]), int(reindeer[6]), int(reindeer[-2]))
-        if coveredKM > winner:
-            winner = coveredKM
-    return winner
+        name = reindeer[0]
+        speed = int(reindeer[3])
+        stamina = int(reindeer[6])
+        rest = int(reindeer[-2])
+        distances[name] = countKM(speed, stamina, rest, raceLength)
+    return distances
 
 
-print(main(capabilties))
+winners = {'Vixen': 0, 'Rudolph': 0, 'Donner': 0, 'Blitzen': 0, 'Comet': 0, 'Cupid': 0, 'Dasher': 0, 'Dancer': 0, 'Prancer': 0}
+
+
+def main(code):
+    i = 1
+    while i <= 2503:
+        distances = race(code, i)
+        winner = max(distances.values())
+        for name, dist in distances.items():
+            if dist == winner:
+                winners[name] += 1
+        i += 1
+
+main(capabilties)
+print(winners)
