@@ -5,8 +5,8 @@ import string
 input = 'cqjxjnds'
 
 string.ascii_lowercase
+
 alpha = list(string.ascii_lowercase)
-alpha.append('#')
 
 
 # password requirement functions
@@ -39,7 +39,7 @@ def excludesIOL(str):
 
 
 def includesPairs(str):
-    length = len(str) - 2
+    length = len(str) - 1
     x = 0
     pairs = 0
     while x < length:
@@ -59,24 +59,17 @@ def passing(str):
 
 def increment(password):
     password = list(password)
-    letterIndex = alpha.index(password[-1])
-    password[-1] = alpha[(letterIndex + 1) % 26]
-    letter = -1
 
-    while letter >= -len(password):
-        if password[letter] == alpha[25]:
-            password[letter] = alpha[0]
-            if letter - 1 >= -len(password):
-                prevIndex = alpha.index(password[letter - 1])
-                password[letter - 1] = alpha[(prevIndex + 1) % 26]
-        letter -= 1
+    i = len(password) - 1
+    while i >= 0:
+        if password[i] == 'z':
+            password[i] = 'a'
+            i -= 1
+        else:
+            password[i] = chr(ord(password[i]) + 1)
+            break
 
-    if password[0] == alpha[25]:
-        password[0] = alpha[0]
-    
-    return "".join(password)
-
-
+    return ''.join(password)
 
 def main(code):
     password = code
