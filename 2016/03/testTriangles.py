@@ -16,6 +16,23 @@ def formatData(input):
     return triangles
 
 
+def formatDataInColumns(rows):
+    triangles = []
+    row = 0
+    while row < len(rows):
+        triangle = []
+        i = 0
+        while i < len(rows[0]):
+            triangle.append(rows[row][i])
+            triangle.append(rows[row + 1][i])
+            triangle.append(rows[row + 2][i])
+            i += 1
+            triangles.append(triangle)
+            triangle = []
+        row += 3
+    return(triangles)
+    
+
 def testTriangles(triangle):
     checker = True
     if triangle[0] + triangle[1] <= triangle[2]:
@@ -36,4 +53,5 @@ def main(triangles):
 
 
 triangles = formatData(data)
+triangles = formatDataInColumns(triangles)
 print(main(triangles))
