@@ -33,23 +33,45 @@ def countChars(code):
 def testKeys(keys, code):
     checker = True
     i = 0
-    while i < len(code) - 1:
+    while i < len(code):
         if keys[i] != code[i]:
             checker = False
         i += 1
     return checker
 
 
+def rotateChar(letter, rotations):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    index = alphabet.index(letter)
+    new_index = (index + rotations) % 26
+    return alphabet[new_index]
+
+
+def decodeString(string, r):
+    cracked = []
+    for _ in string:
+        if _ == '-':
+            cracked.append(' ')
+        else:
+            cracked.append(rotateChar(_, r))
+    return "".join(cracked)
+
+
 def main(codes):
     total = 0
+    counter = 0
+    decodedStrings = []
     for line in codes:
         countedChars = countChars(line[0])
         keys = list(orderLetters(countedChars))
         if testKeys(keys, line[1]):
-            total += int(line[0][-3:])
-    print(total)
-    return total
-
+            number = int(line[0][-3:])
+            total += number
+            newString = decodeString(line[0][:-4], number)
+            decodedStrings.append(total)
+            decodedStrings.append(newString)
+            counter += 1
+    return decodedStrings
         
 codes = formatData(data)
 main(codes)
