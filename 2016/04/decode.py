@@ -59,7 +59,6 @@ def decodeString(string, r):
 
 def main(codes):
     total = 0
-    counter = 0
     decodedStrings = []
     for line in codes:
         countedChars = countChars(line[0])
@@ -70,7 +69,6 @@ def main(codes):
             newString = decodeString(line[0][:-4], number)
             decodedStrings.append(total)
             decodedStrings.append(newString)
-            counter += 1
     return decodedStrings
         
 codes = formatData(data)
