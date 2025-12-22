@@ -67,7 +67,7 @@ def main(codes):
             number = int(line[0][-3:])
             total += number
             newString = decodeString(line[0][:-4], number)
-            decodedStrings.append(total)
+            decodedStrings.append(number)
             decodedStrings.append(newString)
     return decodedStrings
         
