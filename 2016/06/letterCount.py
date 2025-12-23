@@ -19,5 +19,13 @@ for line in codes:
         letterCount[char][letter] = letterCount[char].get(letter, 0) + 1
         char += 1
 
+    maxLetters = []
+    minLetters = []
 for count in letterCount:
-    print(max(letterCount[count], key=letterCount[count].get))
+    maxLetters.append(max(letterCount[count], key=letterCount[count].get))
+    minLetters.append(min(letterCount[count], key=letterCount[count].get))
+
+password1 = "".join(maxLetters)
+password2 = "".join(minLetters)
+
+print(password1, password2)
